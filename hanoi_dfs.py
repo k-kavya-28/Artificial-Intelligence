@@ -3,7 +3,7 @@ def get_next_states(state):
     for i in range(3):
         if state[i]:    #peg not empty
             for j in range(3):
-                if i!=j and (not state[j] or state[i][-1] <= state[j][-1]):
+                if i!=j and (not state[j] or state[i][-1] > state[j][-1]):
                     new_state = list(state)
                     new_state[j] = new_state[j] + (new_state[i][-1],)
                     new_state[i] = new_state[i][:-1]
