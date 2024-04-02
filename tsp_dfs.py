@@ -1,13 +1,10 @@
-# tsp using bfs
-from collections import deque
-
-def tsp_bfs(graph, start_node):
+def tsp_dsf(graph, start_node):
     min_path = []
     min_cost = float('inf')
-    queue = deque([(start_node,[start_node],0)])
+    stack = [(start_node,[start_node],0)]
 
-    while queue:
-        current_node, path, cost = queue.popleft()
+    while stack:
+        current_node, path, cost = stack.pop()
         if len(path) == len(graph) and graph[current_node][start_node] != 0:
             path.append(start_node)
             cost += graph[current_node][start_node]
@@ -19,7 +16,7 @@ def tsp_bfs(graph, start_node):
                 if next_node not in path and graph[current_node][next_node] != 0:
                     new_path = path + [next_node]
                     new_cost = cost + graph[current_node][next_node]
-                    queue.append((next_node,new_path,new_cost))
+                    stack.append((next_node,new_path,new_cost))
 
     return min_path, min_cost
 
@@ -31,6 +28,6 @@ graph = [
 ]
 
 start_node = 0
-min_path, min_cost = tsp_bfs(graph, start_node)
-print("BFS Minimum path:", min_path)
-print("BFS Minimum cost:", min_cost)
+min_path, min_cost = tsp_dsf(graph, start_node)
+print("DFS Minimum path:", min_path)
+print("DFS Minimum cost:", min_cost)
